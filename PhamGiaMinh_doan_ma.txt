@@ -1,0 +1,103 @@
+# BÀI 1: Khởi tạo Project và Tạo Nhánh
+# ------------------------------------
+git clone <https://github.com/MinhPhamGia/25174600229-Ph-m-Gia-Minh-baitap.git>
+cd <https://github.com/MinhPhamGia/25174600229-Ph-m-Gia-Minh-baitap>
+git branch branch_1
+git branch branch_2
+git branch branch_3
+git branch branch_4
+git push origin --all
+
+# BÀI 2 - BÀI 5: Thêm các File text_branch_X.txt
+# ------------------------------------
+git checkout branch_1
+echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit." > text_branch_1.txt
+git add .
+git commit -m "feat: Them text_branch_1.txt"
+git push origin branch_1
+
+git checkout branch_2
+echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit." > text_branch_2.txt
+git add .
+git commit -m "feat: Them text_branch_2.txt"
+git push origin branch_2
+
+git checkout branch_3
+echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit." > text_branch_3.txt
+git add .
+git commit -m "feat: Them text_branch_3.txt"
+git push origin branch_3
+
+git checkout branch_4
+echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit." > text_branch_4.txt
+git add .
+git commit -m "feat: Them text_branch_4.txt"
+git push origin branch_4
+
+# BÀI 6: Thêm Thư mục main_folder và Hợp nhất
+# ------------------------------------
+git checkout main
+mkdir main_folder
+echo "File 1" > main_folder/main_txt_1.txt
+echo "File 2" > main_folder/main_txt_2.txt
+echo "File 3" > main_folder/main_txt_3.txt
+git add main_folder
+git commit -m "feat: Thêm thư mục main_folder và 3 tệp tin"
+git push origin main
+
+git checkout branch_1
+git pull origin main
+git push origin branch_1
+git checkout branch_2
+git pull origin main
+git push origin branch_2
+git checkout branch_3
+git pull origin main
+git push origin branch_3
+git checkout branch_4
+git pull origin main
+git push origin branch_4
+
+# BÀI 7: Tạo Nhánh branch_5 và Conflict
+# ------------------------------------
+git checkout branch_1
+git checkout -b branch_5
+cat <<EOF > text_branch_1.txt
+Etiam malesuada felis nulla, ac porta dui sollicitudin eget. Mauris hendrerit non
+metus eget pellentesque. Etiam ornare ante at pretium hendrerit. Proin molestie
+accumsan sapien, ac finibus libero lobortis quis. Praesent ac commodo eros. Nullam
+malesuada v el dui nec feugiat. Cras justo ipsum, scelerisque et elit vitae, porttitor
+tristique turpis. Nam ut hendrerit est. Nulla sed tincidunt nibh. Class aptent taciti
+sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque vitae
+egestas lacus. Phasellus turpis ante, euismod quis pellentesque et, pharetra id ligula.
+Vestibulum mattis sem ac ligula auctor viverra. Phasellus dignissim mollis leo, vitae
+tristique enim.
+EOF
+git add text_branch_1.txt
+git commit -m "feat: Cập nhật nội dung dài cho text_branch_1.txt tren branch_5"
+git push origin branch_5
+
+git checkout branch_1
+echo "This line causes a CONFLICT in branch 1." >> text_branch_1.txt
+git add text_branch_1.txt
+git commit -m "fix: Tạo conflict tren branch 1"
+git push origin branch_1
+git checkout main
+git branch -D branch_5 # Xóa nhánh local sau khi Merge trên GitHub
+# BÀI 8: Merge tất cả vào main (Được thực hiện trên GitHub, không có lệnh Git)
+# BÀI 9: Xóa Nhánh và Đồng bộ
+# ------------------------------------
+git checkout main
+git push origin --delete branch_2
+git push origin --delete branch_3
+git push origin --delete branch_4
+
+git branch -D branch_2
+git branch -D branch_3
+git branch -D branch_4
+
+git remote prune origin
+
+git checkout branch_1
+git pull origin main
+git push origin branch_1
